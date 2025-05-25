@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardio Guard - Your Heart Health Companion</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --color-primary: #007AFF;
+      --color-secondary: #5856D6;
+      --color-accent: #FF3B30;
+      --color-success: #34C759;
+      --color-heart: #FF2D55;
+      --color-bg-primary: #000000;
+      --color-bg-secondary: #1C1C1E;
+      --color-text-primary: #FFFFFF;
+      --color-text-secondary: #8E8E93;
+      --color-glass: rgba(255, 255, 255, 0.08);
+      --color-glass-border: rgba(255, 255, 255, 0.12);
+      --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --blur-strength: 20px;
+      --border-radius: 16px;
+      --shadow-elevation: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Animated gradient background */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(-45deg, 
+        var(--color-bg-primary), 
+        var(--color-bg-secondary), 
+        #0A0A0A, 
+        var(--color-bg-secondary));
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      z-index: -2;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float 20s infinite linear;
+    }
+
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 25s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 5s; animation-duration: 20s; }
+    .particle:nth-child(3) { left: 30%; animation-delay: 10s; animation-duration: 30s; background: var(--color-success); }
+    .particle:nth-child(4) { left: 40%; animation-delay: 15s; animation-duration: 22s; }
+    .particle:nth-child(5) { left: 50%; animation-delay: 3s; animation-duration: 28s; background: var(--color-heart); }
+    .particle:nth-child(6) { left: 60%; animation-delay: 8s; animation-duration: 24s; }
+    .particle:nth-child(7) { left: 70%; animation-delay: 12s; animation-duration: 26s; background: var(--color-secondary); }
+    .particle:nth-child(8) { left: 80%; animation-delay: 18s; animation-duration: 21s; }
+    .particle:nth-child(9) { left: 90%; animation-delay: 6s; animation-duration: 27s; }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Main container */
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Hero section */
+    .hero {
+      text-align: center;
+      max-width: 800px;
+      z-index: 1;
+      animation: heroReveal 1.2s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes heroReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Logo/Icon section */
+    .logo-section {
+      margin-bottom: 40px;
+      animation: logoFloat 1.5s ease-out 0.3s forwards;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    @keyframes logoFloat {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .logo-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .heart-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--color-heart), var(--color-accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      box-shadow: var(--shadow-elevation);
+      animation: heartbeat 2s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .heart-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shine 3s ease-in-out infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -100%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .heart-svg {
+      width: 40px;
+      height: 40px;
+      fill: white;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    /* Pulse rings */
+    .pulse-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid var(--color-heart);
+      border-radius: 50%;
+      animation: pulse 2s ease-out infinite;
+    }
+
+    .pulse-ring:nth-child(1) { animation-delay: 0s; }
+    .pulse-ring:nth-child(2) { animation-delay: 0.5s; }
+    .pulse-ring:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes pulse {
+      0% {
+        width: 80px;
+        height: 80px;
+        opacity: 1;
+      }
+      100% {
+        width: 160px;
+        height: 160px;
+        opacity: 0;
+      }
+    }
+
+    /* Typography */
+    .main-title {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-text-primary), var(--color-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      animation: titleReveal 1s ease-out 0.6s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes titleReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .subtitle {
+      font-size: clamp(1.125rem, 3vw, 1.5rem);
+      color: var(--color-text-secondary);
+      margin-bottom: 40px;
+      line-height: 1.6;
+      font-weight: 400;
+      animation: subtitleReveal 1s ease-out 0.9s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes subtitleReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Features highlight */
+    .features-preview {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+      animation: featuresReveal 1s ease-out 1.2s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes featuresReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+      background: var(--color-glass);
+      backdrop-filter: blur(var(--blur-strength));
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+      min-width: 140px;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      fill: var(--color-primary);
+    }
+
+    .feature-text {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    /* CTA Button */
+    .cta-container {
+      animation: ctaReveal 1s ease-out 1.5s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes ctaReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 36px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.125rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-elevation);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 50px rgba(0, 122, 255, 0.4);
+    }
+
+    .cta-button:active {
+      transform: translateY(-1px);
+    }
+
+    .arrow-icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover .arrow-icon {
+      transform: translateX(4px);
+    }
+
+    /* Status indicators */
+    .status-bar {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+      animation: statusReveal 1s ease-out 2s forwards;
+      opacity: 0;
+    }
+
+    @keyframes statusReveal {
+      to { opacity: 1; }
+    }
+
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+
+    .status-indicator.active { background: var(--color-success); }
+    .status-indicator.monitoring { background: var(--color-primary); animation-delay: 0.5s; }
+    .status-indicator.alert { background: var(--color-heart); animation-delay: 1s; }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .features-preview {
+        gap: 20px;
+      }
+      
+      .feature-item {
+        min-width: 120px;
+        padding: 16px;
+      }
+      
+      .heart-icon {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .heart-svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-bg"></div>
+  
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-indicator active" title="System Active"></div>
+    <div class="status-indicator monitoring" title="Monitoring"></div>
+    <div class="status-indicator alert" title="Alert Ready"></div>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <div class="logo-section">
+        <div class="logo-container">
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="heart-icon">
+            <svg class="heart-svg" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="main-title">Cardio Guard</h1>
+      <p class="subtitle">Your intelligent guardian for heart health — Advanced monitoring that detects early signs and acts before emergencies occur.</p>
+
+      <div class="features-preview">
+        <div class="feature-item">
+          <svg class="feature-icon" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span class="feature-text">Real-time</span>
+        </div>
+        <div class="feature-item">
+          <svg class="feature-icon" viewBox="0 0 24 24">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+          </svg>
+          <span class="feature-text">Analytics</span>
+        </div>
+        <div class="feature-item">
+          <svg class="feature-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <span class="feature-text">Prevention</span>
+        </div>
+      </div>
+
+      <div class="cta-container">
+        <a href="login.html" class="cta-button">
+          Start Monitoring
+          <svg class="arrow-icon" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add subtle parallax effect on mouse move
+    document.addEventListener('mousemove', (e) => {
+      const particles = document.querySelectorAll('.particle');
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      particles.forEach((particle, index) => {
+        const speed = (index + 1) * 0.5;
+        const xOffset = (x - 0.5) * speed;
+        const yOffset = (y - 0.5) * speed;
+        
+        particle.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+      });
+    });
+
+    // Smooth page transitions
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctaButton = document.querySelector('.cta-button');
+      
+      ctaButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Add loading state
+        ctaButton.style.transform = 'scale(0.98)';
+        
+        setTimeout(() => {
+          window.location.href = ctaButton.href;
+        }, 200);
+      });
+    });
+  </script>
+</body>
+</html>
