@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardio Guard - Health Command Center</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    :root {
+      --color-primary: #007AFF;
+      --color-secondary: #5856D6;
+      --color-accent: #FF3B30;
+      --color-success: #34C759;
+      --color-warning: #FF9500;
+      --color-heart: #FF2D55;
+      --color-bg-primary: #000000;
+      --color-bg-secondary: #1C1C1E;
+      --color-card-bg: rgba(255, 255, 255, 0.05);
+      --color-text-primary: #FFFFFF;
+      --color-text-secondary: #8E8E93;
+      --color-glass: rgba(255, 255, 255, 0.08);
+      --color-glass-border: rgba(255, 255, 255, 0.12);
+      --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --blur-strength: 20px;
+      --border-radius: 16px;
+      --shadow-elevation: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
+
+    /* Animated background */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at top, var(--color-bg-secondary), var(--color-bg-primary));
+      z-index: -2;
+    }
+
+    .pulse-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(255, 45, 85, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(88, 86, 214, 0.1) 0%, transparent 50%);
+      animation: pulseBackground 8s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulseBackground {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    /* Top Navigation */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--color-glass);
+      backdrop-filter: blur(var(--blur-strength));
+      border-bottom: 1px solid var(--color-glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      z-index: 100;
+      animation: navReveal 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes navReveal {
+      to { opacity: 1; }
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--color-heart), var(--color-accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: brandPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes brandPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .brand-text {
+      font-size: 1.125rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--color-text-primary), var(--color-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-status {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-glass);
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--color-glass-border);
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--color-success);
+      border-radius: 50%;
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .live-text {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-success);
+    }
+
+    .profile-menu {
+      width: 44px;
+      height: 44px;
+      background: var(--color-glass);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .profile-menu:hover {
+      transform: scale(1.05);
+      background: var(--color-primary);
+    }
+
+    .profile-menu svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Main Dashboard */
+    .dashboard {
+      padding: 100px 30px 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .dashboard-header {
+      margin-bottom: 40px;
+      animation: headerReveal 1s ease-out 0.3s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes headerReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dashboard-title {
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--color-text-primary), var(--color-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .dashboard-subtitle {
+      color: var(--color-text-secondary);
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    /* Critical Stats Row */
+    .critical-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+      animation: statsReveal 1s ease-out 0.6s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes statsReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stat-card {
+      background: var(--color-glass);
+      backdrop-filter: blur(var(--blur-strength));
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+    }
+
+    .stat-card.heart::before {
+      background: linear-gradient(90deg, var(--color-heart), var(--color-accent));
+    }
+
+    .stat-card.oxygen::before {
+      background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    }
+
+    .stat-card.pressure::before {
+      background: linear-gradient(90deg, var(--color-warning), #FF6B35);
+    }
+
+    .stat-card.stress::before {
+      background: linear-gradient(90deg, var(--color-secondary), #8B5CF6);
+    }
+
+    .stat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .stat-icon.heart {
+      background: linear-gradient(135deg, var(--color-heart), var(--color-accent));
+      animation: heartbeat 1.2s ease-in-out infinite;
+    }
+
+    .stat-icon.oxygen {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    .stat-icon.pressure {
+      background: linear-gradient(135deg, var(--color-warning), #FF6B35);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .stat-icon.stress {
+      background: linear-gradient(135deg, var(--color-secondary), #8B5CF6);
+      animation: glow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.05); }
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+      50% { box-shadow: 0 0 30px rgba(139, 92, 246, 0.6); }
+    }
+
+    .stat-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .stat-trend {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .trend-up {
+      background: rgba(52, 199, 89, 0.2);
+      color: var(--color-success);
+    }
+
+    .trend-down {
+      background: rgba(255, 59, 48, 0.2);
+      color: var(--color-accent);
+    }
+
+    .trend-stable {
+      background: rgba(142, 142, 147, 0.2);
+      color: var(--color-text-secondary);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .stat-unit {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      font-weight: 400;
+    }
+
+    /* Heart Rate Chart */
+    .chart-section {
+      margin-bottom: 40px;
+      animation: chartReveal 1s ease-out 0.9s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes chartReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chart-card {
+      background: var(--color-glass);
+      backdrop-filter: blur(var(--blur-strength));
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .chart-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .chart-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chart-button {
+      padding: 6px 12px;
+      background: var(--color-glass);
+      border: 1px solid var(--color-glass-border);
+      border-radius: 8px;
+      color: var(--color-text-secondary);
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .chart-button.active {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    .chart-button:hover:not(.active) {
+      color: var(--color-text-primary);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .chart-container {
+      height: 200px;
+      position: relative;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .heart-rhythm {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--color-heart);
+      transform: translateY(-50%);
+    }
+
+    .rhythm-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, var(--color-heart), transparent);
+      animation: heartRhythm 2s linear infinite;
+    }
+
+    @keyframes heartRhythm {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .chart-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    /* Action Cards Grid */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      animation: gridReveal 1s ease-out 1.2s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes gridReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .action-card {
+      background: var(--color-glass);
+      backdrop-filter: blur(var(--blur-strength));
+      border: 1px solid var(--color-glass-border);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .action-card:hover::before {
+      left: 100%;
+    }
+
+    .action-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .action-card.emergency {
+      border-color: var(--color-accent);
+      background: rgba(255, 59, 48, 0.1);
+    }
+
+    .action-card.emergency .action-icon {
+      background: linear-gradient(135deg, var(--color-accent), #FF1744);
+      animation: emergencyPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes emergencyPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+    }
+
+    .action-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .action-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    }
+
+    .action-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .action-content h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--color-text-primary);
+    }
+
+    .action-content p {
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .action-arrow {
+      margin-left: auto;
+      width: 20px;
+      height: 20px;
+      fill: var(--color-text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .action-card:hover .action-arrow {
+      transform: translateX(4px);
+      fill: var(--color-primary);
+    }
+
+    /* Enhanced Responsive Design for All Devices */
+    
+    /* Large Desktop (1200px+) */
+    @media (min-width: 1200px) {
+      .dashboard {
+        padding: 100px 40px 40px;
+      }
+      
+      .critical-stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .action-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* iPad Pro and Large Tablets (1024px - 1199px) */
+    @media (min-width: 1024px) and (max-width: 1199px) {
+      .dashboard {
+        padding: 100px 30px 30px;
+      }
+      
+      .critical-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      
+      .action-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      
+      .stat-card {
+        padding: 28px;
+      }
+      
+      .chart-card {
+        padding: 28px;
+      }
+      
+      .action-card {
+        padding: 28px;
+      }
+    }
+
+    /* iPad and Medium Tablets (768px - 1023px) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .top-nav {
+        height: 70px;
+        padding: 0 25px;
+      }
+      
+      .dashboard {
+        padding: 90px 25px 30px;
+      }
+      
+      .dashboard-title {
+        font-size: 2rem;
+      }
+      
+      .critical-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      
+      .stat-card {
+        padding: 24px;
+        min-height: auto;
+      }
+      
+      .stat-value {
+        font-size: 1.75rem;
+      }
+      
+      .stat-icon {
+        width: 44px;
+        height: 44px;
+      }
+      
+      .stat-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+      
+      .chart-card {
+        padding: 24px;
+      }
+      
+      .chart-container {
+        height: 180px;
+      }
+      
+      .action-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+      
+      .action-card {
+        padding: 22px;
+      }
+      
+      .action-icon {
+        width: 46px;
+        height: 46px;
+      }
+      
+      .action-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+      
+      .nav-status {
+        gap: 15px;
+      }
+      
+      .brand-text {
+        font-size: 1rem;
+      }
+    }
+
+    /* Small Tablets and Large Phones (481px - 767px) */
+    @media (min-width: 481px) and (max-width: 767px) {
+      .top-nav {
+        height: 65px;
+        padding: 0 20px;
+      }
+      
+      .dashboard {
+        padding: 85px 20px 25px;
+      }
+      
+      .dashboard-title {
+        font-size: 1.875rem;
+      }
+      
+      .dashboard-subtitle {
+        font-size: 0.9rem;
+      }
+      
+      .critical-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      
+      .stat-card {
+        padding: 20px;
+        min-height: 140px;
+      }
+      
+      .stat-value {
+        font-size: 1.5rem;
+      }
+      
+      .stat-unit {
+        font-size: 0.875rem;
+      }
+      
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .stat-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .chart-card {
+        padding: 20px;
+      }
+      
+      .chart-container {
+        height: 160px;
+      }
+      
+      .chart-title {
+        font-size: 1.125rem;
+      }
+      
+      .chart-controls {
+        gap: 6px;
+      }
+      
+      .chart-button {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+      }
+      
+      .action-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      
+      .action-card {
+        padding: 20px;
+      }
+      
+      .action-header {
+        gap: 14px;
+      }
+      
+      .action-icon {
+        width: 44px;
+        height: 44px;
+      }
+      
+      .action-content h3 {
+        font-size: 1rem;
+      }
+      
+      .action-content p {
+        font-size: 0.8rem;
+      }
+      
+      .nav-status {
+        gap: 12px;
+      }
+      
+      .live-indicator {
+        padding: 6px 12px;
+      }
+      
+      .live-text {
+        font-size: 0.7rem;
+      }
+      
+      .brand-text {
+        display: none; /* Hide brand text on smaller screens */
+      }
+    }
+
+    /* Mobile Phones (320px - 480px) */
+    @media (max-width: 480px) {
+      .top-nav {
+        height: 60px;
+        padding: 0 16px;
+      }
+      
+      .brand-icon {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .brand-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      
+      .profile-menu {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .profile-menu svg {
+        width: 18px;
+        height: 18px;
+      }
+      
+      .dashboard {
+        padding: 80px 16px 20px;
+      }
+      
+      .dashboard-header {
+        margin-bottom: 30px;
+      }
+      
+      .dashboard-title {
+        font-size: 1.75rem;
+        margin-bottom: 6px;
+      }
+      
+      .dashboard-subtitle {
+        font-size: 0.875rem;
+      }
+      
+      .critical-stats {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-bottom: 30px;
+      }
+      
+      .stat-card {
+        padding: 18px;
+        min-height: 120px;
+      }
+      
+      .stat-header {
+        margin-bottom: 12px;
+      }
+      
+      .stat-value {
+        font-size: 1.375rem;
+        margin-bottom: 2px;
+      }
+      
+      .stat-unit {
+        font-size: 0.8rem;
+      }
+      
+      .stat-label {
+        font-size: 0.8rem;
+      }
+      
+      .stat-icon {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .stat-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      
+      .stat-trend {
+        font-size: 0.7rem;
+        padding: 3px 6px;
+      }
+      
+      .chart-section {
+        margin-bottom: 30px;
+      }
+      
+      .chart-card {
+        padding: 18px;
+      }
+      
+      .chart-header {
+        margin-bottom: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      
+      .chart-title {
+        font-size: 1rem;
+      }
+      
+      .chart-controls {
+        gap: 4px;
+        align-self: stretch;
+      }
+      
+      .chart-button {
+        flex: 1;
+        padding: 8px 6px;
+        font-size: 0.65rem;
+        text-align: center;
+      }
+      
+      .chart-container {
+        height: 140px;
+      }
+      
+      .action-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      
+      .action-card {
+        padding: 18px;
+      }
+      
+      .action-header {
+        gap: 12px;
+      }
+      
+      .action-icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+      }
+      
+      .action-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .action-content {
+        flex: 1;
+        min-width: 0;
+      }
+      
+      .action-content h3 {
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+      }
+      
+      .action-content p {
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+      
+      .action-arrow {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+      
+      .nav-status {
+        gap: 8px;
+      }
+      
+      .live-indicator {
+        padding: 4px 8px;
+      }
+      
+      .live-text {
+        font-size: 0.65rem;
+      }
+      
+      .live-dot {
+        width: 6px;
+        height: 6px;
+      }
+    }
+
+    /* Ultra-wide screens (1400px+) */
+    @media (min-width: 1400px) {
+      .dashboard {
+        padding: 100px 50px 50px;
+      }
+      
+      .critical-stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+      }
+      
+      .action-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+      }
+      
+      .stat-card, .chart-card, .action-card {
+        padding: 32px;
+      }
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+      .action-card:hover,
+      .stat-card:hover,
+      .chart-button:hover,
+      .profile-menu:hover {
+        transform: none;
+      }
+      
+      .action-card:active {
+        transform: translateY(-2px) scale(0.98);
+        transition: transform 0.1s ease;
+      }
+      
+      .chart-button:active,
+      .profile-menu:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+      }
+      
+      /* Increase touch targets */
+      .chart-button {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      .profile-menu {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      .action-card {
+        min-height: 80px;
+      }
+    }
+
+    /* High DPI displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .brand-icon,
+      .stat-icon,
+      .action-icon {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+    }
+
+    /* Landscape orientation on tablets */
+    @media (orientation: landscape) and (min-width: 768px) and (max-width: 1024px) {
+      .critical-stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      
+      .action-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .dashboard {
+        padding: 90px 30px 30px;
+      }
+    }
+
+    /* Portrait orientation on tablets */
+    @media (orientation: portrait) and (min-width: 768px) and (max-width: 1024px) {
+      .critical-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .action-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-bg"></div>
+  <div class="pulse-bg"></div>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+      <span class="brand-text">Cardio Guard</span>
+    </div>
+    
+    <div class="nav-status">
+      <div class="live-indicator">
+        <div class="live-dot"></div>
+        <span class="live-text">LIVE</span>
+      </div>
+      <div class="profile-menu">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <main class="dashboard">
+    <header class="dashboard-header">
+      <h1 class="dashboard-title">Health Command Center</h1>
+      <p class="dashboard-subtitle">Real-time monitoring and health insights</p>
+    </header>
+
+    <!-- Critical Stats -->
+    <section class="critical-stats">
+      <div class="stat-card heart">
+        <div class="stat-header">
+          <div class="stat-icon heart">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+          <div class="stat-trend trend-stable">Normal</div>
+        </div>
+        <div class="stat-value">72 <span class="stat-unit">BPM</span></div>
+        <div class="stat-label">Heart Rate</div>
+      </div>
+
+      <div class="stat-card oxygen">
+        <div class="stat-header">
+          <div class="stat-icon oxygen">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+          </div>
+          <div class="stat-trend trend-up">Good</div>
+        </div>
+        <div class="stat-value">98 <span class="stat-unit">%</span></div>
+        <div class="stat-label">Blood Oxygen</div>
+      </div>
+
+      <div class="stat-card pressure">
+        <div class="stat-header">
+          <div class="stat-icon pressure">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div class="stat-trend trend-stable">Normal</div>
+        </div>
+        <div class="stat-value">120/80 <span class="stat-unit">mmHg</span></div>
+        <div class="stat-label">Blood Pressure</div>
+      </div>
+
+      <div class="stat-card stress">
+        <div class="stat-header">
+          <div class="stat-icon stress">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+          </div>
+          <div class="stat-trend trend-down">Low</div>
+        </div>
+        <div class="stat-value">23 <span class="stat-unit">Score</span></div>
+        <div class="stat-label">Stress Level</div>
+      </div>
+    </section>
+
+    <!-- Heart Rate Chart -->
+    <section class="chart-section">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2 class="chart-title">Heart Rate Monitor</h2>
+          <div class="chart-controls">
+            <button class="chart-button active">Live</button>
+            <button class="chart-button">1H</button>
+            <button class="chart-button">24H</button>
+            <button class="chart-button">Week</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <div class="chart-grid"></div>
+          <div class="heart-rhythm">
+            <div class="rhythm-line"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Cards -->
+    <section class="action-grid">
+      <div class="action-card">
+        <div class="action-header">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+          <div class="action-content">
+            <h3>Vital Signs</h3>
+            <p>Monitor real-time heart rate, rhythm, and oxygen levels</p>
+          </div>
+          <svg class="action-arrow" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="action-card emergency">
+        <div class="action-header">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M17.5 12c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1zM12 7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-5 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+              <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-8 6c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm6 0c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-6 6c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+            </svg>
+          </div>
+          <div class="action-content">
+            <h3>Emergency SOS</h3>
+            <p>Immediate emergency response and location sharing</p>
+          </div>
+          <svg class="action-arrow" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-header">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+            </svg>
+          </div>
+          <div class="action-content">
+            <h3>Health Analytics</h3>
+            <p>Detailed reports and trend analysis of your health data</p>
+          </div>
+          <svg class="action-arrow" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-header">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div class="action-content">
+            <h3>AI Recommendations</h3>
+            <p>Personalized health tips and lifestyle suggestions</p>
+          </div>
+          <svg class="action-arrow" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-header">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+          </div>
+          <div class="action-content">
+            <h3>Device Sync</h3>
+            <p>Manage connected devices and synchronization settings</p>
+          </div>
+          <svg class="action-arrow" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-header">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+            </svg>
+          </div>
+          <div class="action-content">
+            <h3>Settings & Profile</h3>
+            <p>Manage account settings and emergency contacts</p>
+          </div>
+          <svg class="action-arrow" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-header">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </div>
+          <div class="action-content">
+            <h3>Health Reports</h3>
+            <p>Generate and share comprehensive health summaries</p>
+          </div>
+          <svg class="action-arrow" viewBox="0 0 24 24">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simulate real-time heart rate updates
+    function updateHeartRate() {
+      const heartRateElement = document.querySelector('.stat-card.heart .stat-value');
+      const currentRate = parseInt(heartRateElement.textContent);
+      const variation = Math.floor(Math.random() * 6) - 3; // -3 to +3 variation
+      const newRate = Math.max(60, Math.min(100, currentRate + variation));
+      
+      heartRateElement.innerHTML = `${newRate} <span class="stat-unit">BPM</span>`;
+      
+      // Update trend indicator
+      const trendElement = document.querySelector('.stat-card.heart .stat-trend');
+      if (newRate > 85) {
+        trendElement.className = 'stat-trend trend-up';
+        trendElement.textContent = 'High';
+      } else if (newRate < 65) {
+        trendElement.className = 'stat-trend trend-down';
+        trendElement.textContent = 'Low';
+      } else {
+        trendElement.className = 'stat-trend trend-stable';
+        trendElement.textContent = 'Normal';
+      }
+    }
+
+    // Simulate blood oxygen updates
+    function updateBloodOxygen() {
+      const oxygenElement = document.querySelector('.stat-card.oxygen .stat-value');
+      const currentOxygen = parseInt(oxygenElement.textContent);
+      const variation = Math.floor(Math.random() * 3) - 1; // -1 to +1 variation
+      const newOxygen = Math.max(95, Math.min(100, currentOxygen + variation));
+      
+      oxygenElement.innerHTML = `${newOxygen} <span class="stat-unit">%</span>`;
+    }
+
+    // Simulate stress level updates
+    function updateStressLevel() {
+      const stressElement = document.querySelector('.stat-card.stress .stat-value');
+      const currentStress = parseInt(stressElement.textContent);
+      const variation = Math.floor(Math.random() * 6) - 3; // -3 to +3 variation
+      const newStress = Math.max(0, Math.min(100, currentStress + variation));
+      
+      stressElement.innerHTML = `${newStress} <span class="stat-unit">Score</span>`;
+      
+      // Update trend indicator
+      const trendElement = document.querySelector('.stat-card.stress .stat-trend');
+      if (newStress > 60) {
+        trendElement.className = 'stat-trend trend-up';
+        trendElement.textContent = 'High';
+      } else if (newStress < 30) {
+        trendElement.className = 'stat-trend trend-down';
+        trendElement.textContent = 'Low';
+      } else {
+        trendElement.className = 'stat-trend trend-stable';
+        trendElement.textContent = 'Moderate';
+      }
+    }
+
+    // Chart control functionality
+    document.querySelectorAll('.chart-button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.chart-button').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Simulate chart data change
+        const rhythmLine = document.querySelector('.rhythm-line');
+        rhythmLine.style.animationDuration = this.textContent === 'Live' ? '2s' : '4s';
+      });
+    });
+
+    // Action card click handlers
+    document.querySelectorAll('.action-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const title = this.querySelector('h3').textContent;
+        
+        // Add click animation
+        this.style.transform = 'translateY(-2px) scale(0.98)';
+        
+        setTimeout(() => {
+          this.style.transform = '';
+          
+          // Simulate navigation based on card type
+          switch(title) {
+            case 'Emergency SOS':
+              alert('Emergency SOS activated! Contacting emergency services...');
+              break;
+            case 'Vital Signs':
+              console.log('Navigating to vital signs page...');
+              break;
+            case 'Health Alerts':
+              console.log('Navigating to alerts page...');
+              break;
+            default:
+              console.log(`Navigating to ${title} page...`);
+          }
+        }, 150);
+      });
+    });
+
+    // Start real-time updates
+    setInterval(updateHeartRate, 3000);
+    setInterval(updateBloodOxygen, 5000);
+    setInterval(updateStressLevel, 7000);
+
+    // Profile menu functionality
+    document.querySelector('.profile-menu').addEventListener('click', function() {
+      this.style.transform = 'scale(0.95)';
+      
+      setTimeout(() => {
+        this.style.transform = '';
+        console.log('Opening profile menu...');
+      }, 150);
+    });
+
+    // Enhanced animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.stat-card, .action-card').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Add subtle parallax effect to background
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      const pulseBg = document.querySelector('.pulse-bg');
+      pulseBg.style.transform = `translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20}px)`;
+    });
+
+    // Simulate live data connection status
+    let connectionStatus = true;
+    setInterval(() => {
+      const liveIndicator = document.querySelector('.live-indicator');
+      if (Math.random() < 0.05) { // 5% chance of brief disconnection
+        connectionStatus = false;
+        liveIndicator.querySelector('.live-text').textContent = 'RECONNECTING';
+        liveIndicator.querySelector('.live-dot').style.background = 'var(--color-warning)';
+        
+        setTimeout(() => {
+          connectionStatus = true;
+          liveIndicator.querySelector('.live-text').textContent = 'LIVE';
+          liveIndicator.querySelector('.live-dot').style.background = 'var(--color-success)';
+        }, 2000);
+      }
+    }, 30000);
+  </script>
+</body>
