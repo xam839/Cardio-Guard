@@ -490,25 +490,660 @@
       background: var(--color-input-focus);
     }
 
-    /* Responsive design */
-    @media (max-width: 480px) {
+    /* Enhanced Responsive Design for All Devices */
+    
+    /* Large Desktop (1200px+) */
+    @media (min-width: 1200px) {
       .login-container {
-        padding: 32px 24px;
-        margin: 0 12px;
+        max-width: 450px;
+        padding: 50px;
+      }
+      
+      .security-status {
+        top: 40px;
+        left: 40px;
+        padding: 10px 20px;
+        font-size: 0.8rem;
+      }
+      
+      .back-button {
+        top: 40px;
+        right: 40px;
+        width: 50px;
+        height: 50px;
+      }
+      
+      .back-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    /* iPad Pro and Large Tablets (1024px - 1199px) */
+    @media (min-width: 1024px) and (max-width: 1199px) {
+      .login-wrapper {
+        padding: 30px;
+      }
+      
+      .login-container {
+        max-width: 420px;
+        padding: 45px;
+      }
+      
+      .security-icon {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .lock-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .login-title {
+        font-size: 2rem;
+      }
+      
+      .login-subtitle {
+        font-size: 0.9rem;
+      }
+      
+      .input-field {
+        padding: 18px;
+        font-size: 1.05rem;
+      }
+      
+      .login-button {
+        padding: 18px;
+        font-size: 1.05rem;
+      }
+      
+      .biometric-button {
+        width: 55px;
+        height: 55px;
+      }
+      
+      .fingerprint-icon {
+        width: 26px;
+        height: 26px;
+      }
+      
+      .security-status {
+        top: 35px;
+        left: 35px;
+        padding: 9px 18px;
+        font-size: 0.78rem;
+      }
+      
+      .back-button {
+        top: 35px;
+        right: 35px;
+        width: 48px;
+        height: 48px;
+      }
+      
+      .back-icon {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    /* iPad and Medium Tablets (768px - 1023px) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .login-wrapper {
+        padding: 25px;
+      }
+      
+      .login-container {
+        max-width: 400px;
+        padding: 40px;
+      }
+      
+      .login-header {
+        margin-bottom: 30px;
+      }
+      
+      .security-icon {
+        width: 65px;
+        height: 65px;
+        margin-bottom: 18px;
+      }
+      
+      .lock-icon {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .login-title {
+        font-size: 1.875rem;
+        margin-bottom: 6px;
+      }
+      
+      .login-subtitle {
+        font-size: 0.85rem;
+      }
+      
+      .input-group {
+        margin-bottom: 18px;
+      }
+      
+      .input-label {
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+      }
+      
+      .input-field {
+        padding: 16px;
+        font-size: 1rem;
+        border-radius: 10px;
+      }
+      
+      .login-button {
+        padding: 16px;
+        font-size: 1rem;
+        margin-bottom: 22px;
+        border-radius: 10px;
+      }
+      
+      .biometric-section {
+        padding: 18px 0;
+        margin-bottom: 22px;
+      }
+      
+      .biometric-text {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+      }
+      
+      .biometric-button {
+        width: 52px;
+        height: 52px;
+      }
+      
+      .fingerprint-icon {
+        width: 25px;
+        height: 25px;
+      }
+      
+      .footer-links {
+        gap: 20px;
+      }
+      
+      .footer-link {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+      }
+      
+      .security-status {
+        top: 30px;
+        left: 30px;
+        padding: 8px 16px;
+        font-size: 0.75rem;
+      }
+      
+      .security-indicator {
+        width: 7px;
+        height: 7px;
+      }
+      
+      .back-button {
+        top: 30px;
+        right: 30px;
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    /* Small Tablets and Large Phones (481px - 767px) */
+    @media (min-width: 481px) and (max-width: 767px) {
+      .login-wrapper {
+        padding: 20px;
+      }
+      
+      .login-container {
+        max-width: 380px;
+        padding: 35px;
+      }
+      
+      .login-header {
+        margin-bottom: 28px;
+      }
+      
+      .security-icon {
+        width: 58px;
+        height: 58px;
+        margin-bottom: 16px;
+      }
+      
+      .lock-icon {
+        width: 26px;
+        height: 26px;
+      }
+      
+      .login-title {
+        font-size: 1.625rem;
+        margin-bottom: 6px;
+      }
+      
+      .login-subtitle {
+        font-size: 0.8rem;
+      }
+      
+      .input-group {
+        margin-bottom: 16px;
+      }
+      
+      .input-label {
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+      }
+      
+      .input-field {
+        padding: 14px;
+        font-size: 0.95rem;
+        border-radius: 10px;
+      }
+      
+      .input-icon {
+        width: 18px;
+        height: 18px;
+        right: 14px;
+      }
+      
+      .password-toggle {
+        right: 14px;
+      }
+      
+      .password-toggle-icon {
+        width: 18px;
+        height: 18px;
+      }
+      
+      .login-button {
+        padding: 15px;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+        border-radius: 10px;
+      }
+      
+      .biometric-section {
+        padding: 16px 0;
+        margin-bottom: 20px;
+      }
+      
+      .biometric-text {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+      }
+      
+      .biometric-button {
+        width: 48px;
+        height: 48px;
+      }
+      
+      .fingerprint-icon {
+        width: 22px;
+        height: 22px;
+      }
+      
+      .footer-links {
+        gap: 18px;
+      }
+      
+      .footer-link {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+      }
+      
+      .security-status {
+        top: 25px;
+        left: 25px;
+        padding: 7px 14px;
+        font-size: 0.7rem;
+      }
+      
+      .back-button {
+        top: 25px;
+        right: 25px;
+        width: 42px;
+        height: 42px;
+      }
+      
+      .back-icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    /* Mobile Phones (320px - 480px) */
+    @media (max-width: 480px) {
+      .login-wrapper {
+        padding: 16px;
+        min-height: 100vh;
+      }
+      
+      .login-container {
+        padding: 28px 20px;
+        margin: 0;
+        max-width: 100%;
+        border-radius: 12px;
+      }
+      
+      .login-header {
+        margin-bottom: 24px;
+      }
+      
+      .security-icon {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 14px;
+      }
+      
+      .lock-icon {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .login-title {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+      }
+      
+      .login-subtitle {
+        font-size: 0.75rem;
+      }
+      
+      .input-group {
+        margin-bottom: 14px;
+      }
+      
+      .input-label {
+        font-size: 0.75rem;
+        margin-bottom: 5px;
+      }
+      
+      .input-field {
+        padding: 12px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+      }
+      
+      .input-icon {
+        width: 16px;
+        height: 16px;
+        right: 12px;
+      }
+      
+      .input-group:has(.input-label) .input-icon {
+        top: calc(50% + 10px);
+      }
+      
+      .password-toggle {
+        right: 12px;
+        padding: 3px;
+      }
+      
+      .input-group:has(.input-label) .password-toggle {
+        top: calc(50% + 10px);
+      }
+      
+      .password-toggle-icon {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .login-button {
+        padding: 14px;
+        font-size: 0.9rem;
+        margin-bottom: 18px;
+        border-radius: 8px;
+      }
+      
+      .biometric-section {
+        padding: 14px 0;
+        margin-bottom: 18px;
+      }
+      
+      .biometric-text {
+        font-size: 0.75rem;
+        margin-bottom: 8px;
+      }
+      
+      .biometric-button {
+        width: 44px;
+        height: 44px;
+      }
+      
+      .fingerprint-icon {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .footer-links {
+        gap: 16px;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .footer-link {
+        font-size: 0.75rem;
+        padding: 8px 12px;
+        min-width: 120px;
+        text-align: center;
+        border-radius: 8px;
+      }
+      
+      .security-status {
+        top: 20px;
+        left: 20px;
+        padding: 6px 12px;
+        font-size: 0.65rem;
+        border-radius: 16px;
+      }
+      
+      .security-indicator {
+        width: 6px;
+        height: 6px;
+      }
+      
+      .back-button {
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+      }
+      
+      .back-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+      .login-button:hover,
+      .biometric-button:hover,
+      .back-button:hover,
+      .password-toggle:hover,
+      .footer-link:hover {
+        transform: none;
+        background: initial;
+      }
+      
+      .login-button:active {
+        transform: translateY(-1px) scale(0.98);
+        transition: transform 0.1s ease;
+      }
+      
+      .biometric-button:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+      }
+      
+      .back-button:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+      }
+      
+      .password-toggle:active {
+        transform: scale(0.9);
+        transition: transform 0.1s ease;
+      }
+      
+      .footer-link:active {
+        background: var(--color-input-focus);
+        transition: background 0.1s ease;
+      }
+      
+      /* Ensure touch targets are large enough */
+      .login-button {
+        min-height: 48px;
+      }
+      
+      .biometric-button {
+        min-width: 48px;
+        min-height: 48px;
+      }
+      
+      .back-button {
+        min-width: 44px;
+        min-height: 44px;
+      }
+      
+      .password-toggle {
+        min-width: 44px;
+        min-height: 44px;
+      }
+      
+      .footer-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    /* High DPI displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .security-icon,
+      .biometric-button {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+    }
+
+    /* Landscape orientation on tablets */
+    @media (orientation: landscape) and (min-width: 768px) and (max-width: 1024px) {
+      .login-wrapper {
+        align-items: flex-start;
+        padding-top: 60px;
+      }
+      
+      .login-container {
+        max-width: 420px;
+      }
+      
+      .login-header {
+        margin-bottom: 25px;
+      }
+      
+      .security-icon {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 15px;
+      }
+    }
+
+    /* Portrait orientation on tablets */
+    @media (orientation: portrait) and (min-width: 768px) and (max-width: 1024px) {
+      .login-wrapper {
+        align-items: center;
+      }
+      
+      .login-container {
+        max-width: 400px;
+      }
+    }
+
+    /* Small screens in landscape */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .login-wrapper {
+        align-items: flex-start;
+        padding: 20px 16px;
+      }
+      
+      .login-container {
+        padding: 20px;
+        margin: 20px 0;
+      }
+      
+      .login-header {
+        margin-bottom: 16px;
+      }
+      
+      .security-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+      }
+      
+      .login-title {
+        font-size: 1.25rem;
+        margin-bottom: 2px;
+      }
+      
+      .login-subtitle {
+        font-size: 0.7rem;
+      }
+      
+      .input-group {
+        margin-bottom: 12px;
+      }
+      
+      .biometric-section {
+        padding: 10px 0;
+        margin-bottom: 12px;
       }
       
       .security-status,
       .back-button {
-        position: fixed;
-        top: 20px;
+        top: 10px;
+      }
+    }
+
+    /* Very large screens */
+    @media (min-width: 1600px) {
+      .login-container {
+        max-width: 500px;
+        padding: 60px;
       }
       
-      .security-status {
-        left: 20px;
+      .security-icon {
+        width: 80px;
+        height: 80px;
       }
       
-      .back-button {
-        right: 20px;
+      .lock-icon {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .login-title {
+        font-size: 2.25rem;
+      }
+      
+      .login-subtitle {
+        font-size: 1rem;
+      }
+      
+      .input-field {
+        padding: 20px;
+        font-size: 1.1rem;
+      }
+      
+      .login-button {
+        padding: 20px;
+        font-size: 1.1rem;
       }
     }
   </style>
@@ -640,7 +1275,7 @@
         button.textContent = '✓ Authenticated';
         
         setTimeout(() => {
-          // Redirect to dashboard or next page
+          // Redirect to landing page
           window.location.href = 'index.html';
         }, 1000);
       }, 2000);
@@ -658,7 +1293,7 @@
           this.innerHTML = '<svg class="fingerprint-icon" viewBox="0 0 24 24" style="fill: var(--color-success);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>';
           
           setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'dashboard.html';
           }, 1500);
         }, 1000);
       }, 200);
