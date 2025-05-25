@@ -1246,7 +1246,7 @@
   </div>
 
   <script>
-    function togglePassword() {
+   function togglePassword() {
       const passwordField = document.getElementById('password');
       const passwordIcon = document.getElementById('password-icon');
       
@@ -1264,21 +1264,25 @@
       e.preventDefault();
       
       const button = document.querySelector('.login-button');
-      const originalText = button.textContent;
+      
+      // Simple validation - just check if fields are not empty
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      
+      if (!email || !password) {
+        alert('Please fill in all fields');
+        return;
+      }
       
       // Loading state
-      button.textContent = 'Authenticating...';
+      button.textContent = 'Signing In...';
       button.disabled = true;
       
-      // Simulate authentication
+      // Direct redirect after short delay (no actual verification)
       setTimeout(() => {
-        button.textContent = '✓ Authenticated';
-        
-        setTimeout(() => {
-          // Redirect to landing page
-          window.location.href = 'index.html';
-        }, 1000);
-      }, 2000);
+        window.location.href = 'index.html';
+      }, 800);
+    });
     });
 
     // Biometric authentication simulation
