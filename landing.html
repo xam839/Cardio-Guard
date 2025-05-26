@@ -7,8 +7,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-    
     :root {
       --color-primary: #007AFF;
       --color-secondary: #5856D6;
@@ -477,22 +475,167 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: var(--color-heart);
       transform: translateY(-50%);
+      overflow: hidden;
     }
 
     .rhythm-line {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: -50px;
+      bottom: -50px;
+      width: 200%;
+      background: transparent;
+      animation: heartRhythm 3s linear infinite;
+    }
+
+    .rhythm-line::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
       width: 100%;
-      background: linear-gradient(90deg, transparent, var(--color-heart), transparent);
-      animation: heartRhythm 2s linear infinite;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent 0%,
+        var(--color-heart) 10%,
+        var(--color-heart) 15%,
+        transparent 16%,
+        transparent 18%,
+        var(--color-heart) 19%,
+        var(--color-heart) 19.5%,
+        transparent 20%,
+        transparent 22%,
+        var(--color-heart) 23%,
+        var(--color-heart) 28%,
+        transparent 29%,
+        transparent 35%,
+        var(--color-heart) 36%,
+        var(--color-heart) 38%,
+        transparent 39%,
+        transparent 45%,
+        var(--color-heart) 46%,
+        var(--color-heart) 48%,
+        transparent 49%,
+        transparent 55%,
+        var(--color-heart) 56%,
+        var(--color-heart) 61%,
+        transparent 62%,
+        transparent 68%,
+        var(--color-heart) 69%,
+        var(--color-heart) 71%,
+        transparent 72%,
+        transparent 78%,
+        var(--color-heart) 79%,
+        var(--color-heart) 84%,
+        transparent 85%,
+        transparent 91%,
+        var(--color-heart) 92%,
+        var(--color-heart) 94%,
+        transparent 95%,
+        transparent 100%);
+      transform: translateY(-50%);
+    }
+
+    .rhythm-line::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: transparent;
+      transform: translateY(-50%);
+      background-image: 
+        /* Main heartbeat spikes */
+        linear-gradient(90deg, transparent 14.8%, var(--color-heart) 15%, var(--color-heart) 15.2%, transparent 15.4%),
+        linear-gradient(90deg, transparent 18.8%, var(--color-heart) 19%, var(--color-heart) 19.2%, transparent 19.4%),
+        linear-gradient(90deg, transparent 22.8%, var(--color-heart) 23%, var(--color-heart) 27.8%, transparent 28%),
+        linear-gradient(90deg, transparent 35.8%, var(--color-heart) 36%, var(--color-heart) 37.8%, transparent 38%),
+        linear-gradient(90deg, transparent 45.8%, var(--color-heart) 46%, var(--color-heart) 47.8%, transparent 48%),
+        linear-gradient(90deg, transparent 55.8%, var(--color-heart) 56%, var(--color-heart) 60.8%, transparent 61%),
+        linear-gradient(90deg, transparent 68.8%, var(--color-heart) 69%, var(--color-heart) 70.8%, transparent 71%),
+        linear-gradient(90deg, transparent 78.8%, var(--color-heart) 79%, var(--color-heart) 83.8%, transparent 84%),
+        linear-gradient(90deg, transparent 91.8%, var(--color-heart) 92%, var(--color-heart) 93.8%, transparent 94%);
+      background-size: 100% 2px, 100% 2px, 100% 2px, 100% 2px, 100% 2px, 100% 2px, 100% 2px, 100% 2px, 100% 2px;
+      background-position: 0 20px, 0 45px, 0 50px, 0 35px, 0 40px, 0 50px, 0 30px, 0 50px, 0 25px;
+      background-repeat: no-repeat;
     }
 
     @keyframes heartRhythm {
       0% { left: -100%; }
-      100% { left: 100%; }
+      100% { left: 0%; }
+    }
+
+    /* Enhanced heartbeat pattern using SVG path */
+    .heartbeat-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .heartbeat-path {
+      stroke: var(--color-heart);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      animation: drawHeartbeat 4s linear infinite;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      opacity: 0.8;
+    }
+
+    .heartbeat-path:nth-child(2) {
+      stroke: var(--color-primary);
+      opacity: 0.6;
+      animation-delay: 0.5s;
+      animation-duration: 4.5s;
+    }
+
+    @keyframes drawHeartbeat {
+      0% {
+        stroke-dashoffset: 1000;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Pulsing effect for the chart */
+    .chart-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      width: 8px;
+      height: 8px;
+      background: var(--color-heart);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      animation: heartPulse 1.2s ease-in-out infinite;
+      box-shadow: 0 0 15px var(--color-heart);
+    }
+
+    @keyframes heartPulse {
+      0%, 100% { 
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+      }
+      25% { 
+        transform: translateY(-50%) scale(1.5);
+        opacity: 0.8;
+      }
+      50% { 
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+      }
+      75% { 
+        transform: translateY(-50%) scale(1.2);
+        opacity: 0.9;
+      }
     }
 
     .chart-grid {
@@ -1236,6 +1379,10 @@
         </div>
         <div class="chart-container">
           <div class="chart-grid"></div>
+          <svg class="heartbeat-svg" viewBox="0 0 400 200" preserveAspectRatio="none">
+            <path class="heartbeat-path" d="M0,100 L50,100 L55,80 L60,120 L65,40 L70,140 L75,100 L125,100 L130,95 L135,105 L140,100 L190,100 L195,90 L200,110 L205,100 L255,100 L260,85 L265,115 L270,60 L275,130 L280,100 L330,100 L335,95 L340,105 L345,100 L400,100"/>
+            <path class="heartbeat-path" d="M0,100 L40,100 L45,85 L50,115 L55,70 L60,125 L65,100 L115,100 L120,90 L125,110 L130,100 L180,100 L185,80 L190,120 L195,50 L200,135 L205,100 L255,100 L260,95 L265,105 L270,100 L320,100 L325,85 L330,115 L335,100 L400,100" style="animation-delay: 0.5s;"/>
+          </svg>
           <div class="heart-rhythm">
             <div class="rhythm-line"></div>
           </div>
