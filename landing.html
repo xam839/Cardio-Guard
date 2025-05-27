@@ -1273,6 +1273,538 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+    /* Vital Signs Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.vital-signs-modal {
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(30px) scale(0.9);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-elevation);
+}
+
+.modal-overlay.active .vital-signs-modal {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: center;
+  flex: 1;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+}
+
+.modal-close svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+/* Main Heart Rate Display */
+.main-heart-rate {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  position: relative;
+}
+
+.heart-rate-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.heart-rate-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-primary);
+}
+
+.heart-rate-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.heart-rate-value {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.heart-rate-unit {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+.heart-rate-zone {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+}
+
+/* Heart Rate Chart Line */
+.heart-rate-chart {
+  height: 60px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transform: translateY(-50%);
+}
+
+.chart-dot {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Vital Metrics Grid */
+.vital-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.vital-metric {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: left;
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.metric-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-text-secondary);
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-unit {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-left: 4px;
+}
+
+.metric-status {
+  font-size: 0.75rem;
+  color: var(--color-success);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.metric-status.elevated {
+  color: var(--color-accent);
+}
+
+.status-icon {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.vital-metric.full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 480px) {
+  .vital-signs-modal {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .vital-metrics {
+    grid-template-columns: 1fr;
+  }
+  
+  .heart-rate-value {
+    font-size: 3rem;
+  }
+  
+  .metric-value {
+    font-size: 1.75rem;
+  }
+}
+
+/* AI Recommendations Modal */
+.ai-recommendations-modal {
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(30px) scale(0.9);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-elevation);
+}
+
+.recommendations-content {
+  padding: 20px;
+}
+
+.recommendation-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.recommendation-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
+}
+
+.recommendation-item.warning {
+  border-left-color: var(--color-accent);
+}
+
+.recommendation-item.success {
+  border-left-color: var(--color-success);
+}
+
+.recommendation-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.recommendation-icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--color-primary);
+}
+
+.recommendation-icon.warning {
+  fill: var(--color-accent);
+}
+
+.recommendation-icon.success {
+  fill: var(--color-success);
+}
+
+.recommendation-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.recommendation-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .ai-recommendations-modal {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .recommendations-content {
+    padding: 16px;
+  }
+  
+  .recommendation-item {
+    padding: 14px;
+  }
+}
+
+/* Health Analytics Modal */
+.health-analytics-modal {
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(30px) scale(0.9);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-elevation);
+}
+
+.analytics-content {
+  padding: 20px;
+}
+
+.report-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.report-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.report-meta {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.report-section {
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+  border-left: 4px solid var(--color-primary);
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-primary);
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-glass-border), transparent);
+  margin: 16px 0;
+}
+
+.report-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.report-list li {
+  padding: 8px 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 20px;
+}
+
+.report-list li::before {
+  content: '•';
+  color: var(--color-primary);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.report-list li strong {
+  color: var(--color-text-primary);
+}
+
+.risk-assessment {
+  background: rgba(255, 59, 48, 0.1);
+  border-left-color: var(--color-accent);
+}
+
+.risk-level {
+  display: inline-block;
+  background: var(--color-accent);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.risk-level.moderate {
+  background: var(--color-warning);
+}
+
+.risk-level.low {
+  background: var(--color-success);
+}
+
+.export-button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.export-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+}
+
+.export-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+@media (max-width: 480px) {
+  .health-analytics-modal {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .analytics-content {
+    padding: 16px;
+  }
+  
+  .report-section {
+    padding: 16px;
+  }
+  
+  .report-title {
+    font-size: 1.25rem;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
   </style>
 </head>
 <body>
@@ -1408,7 +1940,124 @@
           </svg>
         </div>
       </div>
+<!-- Vital Signs Modal -->
+<div class="modal-overlay" id="vitalSignsModal">
+  <div class="vital-signs-modal">
+    <div class="modal-header">
+      <div class="modal-title">HEALTH MONITOR</div>
+      <button class="modal-close" onclick="closeVitalSignsModal()">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="modal-content">
+      <div class="main-heart-rate">
+        <div class="heart-rate-header">
+          <svg class="heart-rate-icon" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <span class="heart-rate-label">Heart Rate</span>
+        </div>
+        
+        <div class="heart-rate-value">
+          <span id="modalHeartRate">79</span>
+          <span class="heart-rate-unit">BPM</span>
+        </div>
+        
+        <div class="heart-rate-zone">Zone 0</div>
+        
+        <div class="heart-rate-chart">
+          <div class="chart-line"></div>
+          <div class="chart-dot"></div>
+        </div>
+      </div>
 
+      <div class="vital-metrics">
+        <div class="vital-metric">
+          <div class="metric-header">
+            <svg class="metric-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            <span class="metric-label">Respiratory Rate</span>
+          </div>
+          <div class="metric-value">12.4<span class="metric-unit">rpm</span></div>
+          <div class="metric-status">
+            <svg class="status-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            within 12.3 - 12.7
+          </div>
+        </div>
+
+        <div class="vital-metric">
+          <div class="metric-header">
+            <svg class="metric-icon" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span class="metric-label">Blood Oxygen (SpO₂)</span>
+          </div>
+          <div class="metric-value">95<span class="metric-unit">%</span></div>
+          <div class="metric-status">
+            <svg class="status-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            within 95% - 100%
+          </div>
+        </div>
+
+        <div class="vital-metric">
+          <div class="metric-header">
+            <svg class="metric-icon" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span class="metric-label">RHR</span>
+          </div>
+          <div class="metric-value">60<span class="metric-unit">bpm</span></div>
+          <div class="metric-status">
+            <svg class="status-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            within 59 - 62
+          </div>
+        </div>
+
+        <div class="vital-metric">
+          <div class="metric-header">
+            <svg class="metric-icon" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span class="metric-label">HRV</span>
+          </div>
+          <div class="metric-value">44<span class="metric-unit">ms</span></div>
+          <div class="metric-status elevated">
+            <svg class="status-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            elevated > 43
+          </div>
+        </div>
+
+        <div class="vital-metric full-width">
+          <div class="metric-header">
+            <svg class="metric-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            <span class="metric-label">Skin Temp (From Baseline)</span>
+          </div>
+          <div class="metric-value">+0.1<span class="metric-unit">°C</span></div>
+          <div class="metric-status">
+            <svg class="status-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            within -0.3 to +0.4
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="action-card emergency">
         <div class="action-header">
           <div class="action-icon">
@@ -1443,7 +2092,113 @@
           </svg>
         </div>
       </div>
+<!-- Health Analytics Modal -->
+<div class="modal-overlay" id="healthAnalyticsModal">
+  <div class="health-analytics-modal">
+    <div class="modal-header">
+      <div class="modal-title">Health Analytics Report</div>
+      <button class="modal-close" onclick="closeHealthAnalyticsModal()">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="analytics-content">
+      <div class="report-header">
+        <div class="report-title">Health Analytics</div>
+        <div class="report-meta">
+          Date: <span id="reportDate"></span><br>
+          User ID: CG-2024-7891<br>
+          Device: Cardio Guard Smart Band
+        </div>
+      </div>
 
+      <div class="report-section">
+        <div class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          1. Vital Signs Summary
+        </div>
+        <div class="section-divider"></div>
+        <ul class="report-list">
+          <li><strong>Average Heart Rate (Resting):</strong> 78 bpm</li>
+          <li><strong>Heart Rate Variability:</strong> Low (Possible stress or fatigue)</li>
+          <li><strong>Blood Pressure Trend:</strong> Within target range</li>
+          <li><strong>Oxygen Saturation:</strong> 97% (Normal)</li>
+        </ul>
+      </div>
+
+      <div class="report-section">
+        <div class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24">
+            <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/>
+          </svg>
+          2. Activity & Lifestyle Analysis
+        </div>
+        <div class="section-divider"></div>
+        <ul class="report-list">
+          <li><strong>Step Count (Average/day):</strong> 4,200 steps</li>
+          <li><strong>Physical Activity Level:</strong> Below recommended threshold</li>
+          <li><strong>Sleep Duration:</strong> 5h 45m (Needs improvement)</li>
+          <li><strong>Sleep Quality:</strong> Disrupted (Frequent awakenings detected)</li>
+        </ul>
+      </div>
+
+      <div class="report-section">
+        <div class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24">
+            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+          </svg>
+          3. Alerts & Early Warnings
+        </div>
+        <div class="section-divider"></div>
+        <ul class="report-list">
+          <li><strong>Irregular Heart Rhythm</strong> detected on 2 occasions this week.</li>
+          <li><strong>Fatigue Indicator:</strong> Elevated resting heart rate in mornings.</li>
+        </ul>
+      </div>
+
+      <div class="report-section">
+        <div class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          4. Recommendations
+        </div>
+        <div class="section-divider"></div>
+        <ul class="report-list">
+          <li>Increase physical activity to <strong>6,000–8,000 steps/day</strong>.</li>
+          <li>Reduce screen time and <strong>caffeine intake before bedtime</strong>.</li>
+          <li>Schedule a check-up if <strong>heart rhythm irregularities persist</strong>.</li>
+          <li>Start <strong>guided breathing exercises</strong> (5 minutes daily).</li>
+        </ul>
+      </div>
+
+      <div class="report-section risk-assessment">
+        <div class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          5. Weekly Risk Assessment
+        </div>
+        <div class="section-divider"></div>
+        <ul class="report-list">
+          <li><strong>Cardiac Risk Level:</strong> <span class="risk-level moderate">Moderate</span></li>
+          <li><strong>AI suggests</strong> close monitoring and lifestyle adjustments.</li>
+        </ul>
+      </div>
+
+      <button class="export-button" onclick="exportReport()">
+        <svg class="export-icon" viewBox="0 0 24 24">
+          <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+        </svg>
+        Export Report
+      </button>
+    </div>
+  </div>
+</div>
       <div class="action-card">
         <div class="action-header">
           <div class="action-icon">
@@ -1460,7 +2215,81 @@
           </svg>
         </div>
       </div>
+<!-- AI Recommendations Modal -->
+<div class="modal-overlay" id="aiRecommendationsModal">
+  <div class="ai-recommendations-modal">
+    <div class="modal-header">
+      <div class="modal-title">AI-POWERED HEALTH RECOMMENDATIONS</div>
+      <button class="modal-close" onclick="closeAIRecommendationsModal()">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="recommendations-content">
+      <div class="recommendation-item">
+        <div class="recommendation-header">
+          <svg class="recommendation-icon" viewBox="0 0 24 24">
+            <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/>
+          </svg>
+          <span class="recommendation-title">Physical Activity Alert</span>
+        </div>
+        <p class="recommendation-text">Your daily movement decreased by 30% over three days. A light 20-minute walk is recommended to improve circulation.</p>
+      </div>
 
+      <div class="recommendation-item warning">
+        <div class="recommendation-header">
+          <svg class="recommendation-icon warning" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <span class="recommendation-title">Heart Rate Notification</span>
+        </div>
+        <p class="recommendation-text">Irregular nighttime heart rate detected. Consider reducing evening caffeine and monitor closely for 48 hours.</p>
+      </div>
+
+      <div class="recommendation-item">
+        <div class="recommendation-header">
+          <svg class="recommendation-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <span class="recommendation-title">Sleep Quality Tip</span>
+        </div>
+        <p class="recommendation-text">Sleep quality is below average with elevated resting heart rate. Try sleeping earlier and reducing bedtime stress.</p>
+      </div>
+
+      <div class="recommendation-item">
+        <div class="recommendation-header">
+          <svg class="recommendation-icon" viewBox="0 0 24 24">
+            <path d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V1h-1.97v4.05h-4.97l.3 2.34c1.71.47 3.31 1.32 4.27 2.26 1.44 1.42 2.43 2.89 2.43 5.29v8.05zM1 22.99h11.97V21.3H1v1.69z"/>
+          </svg>
+          <span class="recommendation-title">Dietary Recommendation</span>
+        </div>
+        <p class="recommendation-text">Lower sodium intake by 20% and increase omega-3 rich foods to support optimal heart function.</p>
+      </div>
+
+      <div class="recommendation-item">
+        <div class="recommendation-header">
+          <svg class="recommendation-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <span class="recommendation-title">Stress Management</span>
+        </div>
+        <p class="recommendation-text">Elevated heart rate variability suggests stress. Try a 5-minute guided breathing session or mindfulness activity.</p>
+      </div>
+
+      <div class="recommendation-item success">
+        <div class="recommendation-header">
+          <svg class="recommendation-icon success" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span class="recommendation-title">Weekly Insight</span>
+        </div>
+        <p class="recommendation-text">Heart health summary ready. Stable readings overall, but activity was low. Goal: 5,000 steps daily next week.</p>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="action-card">
         <div class="action-header">
           <div class="action-icon">
@@ -1515,161 +2344,321 @@
   </main>
 
   <script>
-    // Simulate real-time heart rate updates
-    function updateHeartRate() {
-      const heartRateElement = document.querySelector('.stat-card.heart .stat-value');
-      const currentRate = parseInt(heartRateElement.textContent);
-      const variation = Math.floor(Math.random() * 6) - 3; // -3 to +3 variation
-      const newRate = Math.max(60, Math.min(100, currentRate + variation));
-      
-      heartRateElement.innerHTML = `${newRate} <span class="stat-unit">BPM</span>`;
-      
-      // Update trend indicator
-      const trendElement = document.querySelector('.stat-card.heart .stat-trend');
-      if (newRate > 85) {
-        trendElement.className = 'stat-trend trend-up';
-        trendElement.textContent = 'High';
-      } else if (newRate < 65) {
-        trendElement.className = 'stat-trend trend-down';
-        trendElement.textContent = 'Low';
-      } else {
-        trendElement.className = 'stat-trend trend-stable';
-        trendElement.textContent = 'Normal';
-      }
+ // Simulate real-time heart rate updates
+function updateHeartRate() {
+  const heartRateElement = document.querySelector('.stat-card.heart .stat-value');
+  const currentRate = parseInt(heartRateElement.textContent);
+  const variation = Math.floor(Math.random() * 6) - 3; // -3 to +3 variation
+  const newRate = Math.max(60, Math.min(100, currentRate + variation));
+  
+  heartRateElement.innerHTML = `${newRate} <span class="stat-unit">BPM</span>`;
+  
+  // Update modal heart rate if modal is open
+  const modalHeartRate = document.getElementById('modalHeartRate');
+  if (modalHeartRate) {
+    modalHeartRate.textContent = newRate;
+  }
+  
+  // Update trend indicator
+  const trendElement = document.querySelector('.stat-card.heart .stat-trend');
+  if (newRate > 85) {
+    trendElement.className = 'stat-trend trend-up';
+    trendElement.textContent = 'High';
+  } else if (newRate < 65) {
+    trendElement.className = 'stat-trend trend-down';
+    trendElement.textContent = 'Low';
+  } else {
+    trendElement.className = 'stat-trend trend-stable';
+    trendElement.textContent = 'Normal';
+  }
+}
+
+// Simulate blood oxygen updates
+function updateBloodOxygen() {
+  const oxygenElement = document.querySelector('.stat-card.oxygen .stat-value');
+  const currentOxygen = parseInt(oxygenElement.textContent);
+  const variation = Math.floor(Math.random() * 3) - 1; // -1 to +1 variation
+  const newOxygen = Math.max(95, Math.min(100, currentOxygen + variation));
+  
+  oxygenElement.innerHTML = `${newOxygen} <span class="stat-unit">%</span>`;
+}
+
+// Simulate stress level updates
+function updateStressLevel() {
+  const stressElement = document.querySelector('.stat-card.stress .stat-value');
+  const currentStress = parseInt(stressElement.textContent);
+  const variation = Math.floor(Math.random() * 6) - 3; // -3 to +3 variation
+  const newStress = Math.max(0, Math.min(100, currentStress + variation));
+  
+  stressElement.innerHTML = `${newStress} <span class="stat-unit">Score</span>`;
+  
+  // Update trend indicator
+  const trendElement = document.querySelector('.stat-card.stress .stat-trend');
+  if (newStress > 60) {
+    trendElement.className = 'stat-trend trend-up';
+    trendElement.textContent = 'High';
+  } else if (newStress < 30) {
+    trendElement.className = 'stat-trend trend-down';
+    trendElement.textContent = 'Low';
+  } else {
+    trendElement.className = 'stat-trend trend-stable';
+    trendElement.textContent = 'Moderate';
+  }
+}
+
+// Chart control functionality
+document.querySelectorAll('.chart-button').forEach(button => {
+  button.addEventListener('click', function() {
+    document.querySelectorAll('.chart-button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    
+    // Simulate chart data change
+    const rhythmLine = document.querySelector('.rhythm-line');
+    if (rhythmLine) {
+      rhythmLine.style.animationDuration = this.textContent === 'Live' ? '2s' : '4s';
     }
+  });
+});
 
-    // Simulate blood oxygen updates
-    function updateBloodOxygen() {
-      const oxygenElement = document.querySelector('.stat-card.oxygen .stat-value');
-      const currentOxygen = parseInt(oxygenElement.textContent);
-      const variation = Math.floor(Math.random() * 3) - 1; // -1 to +1 variation
-      const newOxygen = Math.max(95, Math.min(100, currentOxygen + variation));
-      
-      oxygenElement.innerHTML = `${newOxygen} <span class="stat-unit">%</span>`;
+// Vital Signs Modal Functions
+function openVitalSignsModal() {
+  const modal = document.getElementById('vitalSignsModal');
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Update heart rate to match dashboard
+    const dashboardHeartRate = document.querySelector('.stat-card.heart .stat-value').textContent.split(' ')[0];
+    const modalHeartRate = document.getElementById('modalHeartRate');
+    if (modalHeartRate) {
+      modalHeartRate.textContent = dashboardHeartRate;
     }
+  }
+}
 
-    // Simulate stress level updates
-    function updateStressLevel() {
-      const stressElement = document.querySelector('.stat-card.stress .stat-value');
-      const currentStress = parseInt(stressElement.textContent);
-      const variation = Math.floor(Math.random() * 6) - 3; // -3 to +3 variation
-      const newStress = Math.max(0, Math.min(100, currentStress + variation));
-      
-      stressElement.innerHTML = `${newStress} <span class="stat-unit">Score</span>`;
-      
-      // Update trend indicator
-      const trendElement = document.querySelector('.stat-card.stress .stat-trend');
-      if (newStress > 60) {
-        trendElement.className = 'stat-trend trend-up';
-        trendElement.textContent = 'High';
-      } else if (newStress < 30) {
-        trendElement.className = 'stat-trend trend-down';
-        trendElement.textContent = 'Low';
-      } else {
-        trendElement.className = 'stat-trend trend-stable';
-        trendElement.textContent = 'Moderate';
-      }
+function closeVitalSignsModal() {
+  const modal = document.getElementById('vitalSignsModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// AI Recommendations Modal Functions
+function openAIRecommendationsModal() {
+  const modal = document.getElementById('aiRecommendationsModal');
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeAIRecommendationsModal() {
+  const modal = document.getElementById('aiRecommendationsModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// Health Analytics Modal Functions
+function openHealthAnalyticsModal() {
+  const modal = document.getElementById('healthAnalyticsModal');
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Set current date
+    const today = new Date();
+    const dateString = today.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+    const reportDateElement = document.getElementById('reportDate');
+    if (reportDateElement) {
+      reportDateElement.textContent = dateString;
     }
+  }
+}
 
-    // Chart control functionality
-    document.querySelectorAll('.chart-button').forEach(button => {
-      button.addEventListener('click', function() {
-        document.querySelectorAll('.chart-button').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Simulate chart data change
-        const rhythmLine = document.querySelector('.rhythm-line');
-        rhythmLine.style.animationDuration = this.textContent === 'Live' ? '2s' : '4s';
-      });
-    });
+function closeHealthAnalyticsModal() {
+  const modal = document.getElementById('healthAnalyticsModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
 
-    // Action card click handlers
-    document.querySelectorAll('.action-card').forEach(card => {
-      card.addEventListener('click', function() {
-        const title = this.querySelector('h3').textContent;
-        
-        // Add click animation
-        this.style.transform = 'translateY(-2px) scale(0.98)';
-        
-        setTimeout(() => {
-          this.style.transform = '';
-          
-          // Simulate navigation based on card type
-          switch(title) {
-            case 'Emergency SOS':
-              alert('Emergency SOS activated! Contacting emergency services...');
-              break;
-            case 'Vital Signs':
-              console.log('Navigating to vital signs page...');
-              break;
-            case 'Health Alerts':
-              console.log('Navigating to alerts page...');
-              break;
-            default:
-              console.log(`Navigating to ${title} page...`);
-          }
-        }, 150);
-      });
-    });
+// Export Report Function
+function exportReport() {
+  alert('Report exported successfully! Check your downloads folder.');
+}
 
-    // Start real-time updates
-    setInterval(updateHeartRate, 3000);
-    setInterval(updateBloodOxygen, 5000);
-    setInterval(updateStressLevel, 7000);
+// PDF Download Function
+function downloadHealthReport() {
+  try {
+    // Create download link
+    const link = document.createElement('a');
+    link.href = 'report1.pdf'; // Make sure this file exists in your project
+    link.download = 'Cardio_Guard_Health_Report.pdf';
+    link.style.display = 'none';
+    
+    // Add to DOM and trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    console.log('PDF download initiated');
+  } catch (error) {
+    console.error('Download failed:', error);
+    alert('Download failed. Please make sure the health-report.pdf file exists.');
+  }
+}
 
-    // Profile menu functionality
-    document.querySelector('.profile-menu').addEventListener('click', function() {
-      this.style.transform = 'scale(0.95)';
+// Action card click handlers
+document.querySelectorAll('.action-card').forEach(card => {
+  card.addEventListener('click', function() {
+    const title = this.querySelector('h3').textContent;
+    
+    // Add click animation
+    this.style.transform = 'translateY(-2px) scale(0.98)';
+    
+    setTimeout(() => {
+      this.style.transform = '';
       
-      setTimeout(() => {
-        this.style.transform = '';
-        console.log('Opening profile menu...');
-      }, 150);
-    });
-
-    // Enhanced animations on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = 'running';
-        }
-      });
-    }, observerOptions);
-
-    // Observe all animated elements
-    document.querySelectorAll('.stat-card, .action-card').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Add subtle parallax effect to background
-    document.addEventListener('mousemove', (e) => {
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      
-      const pulseBg = document.querySelector('.pulse-bg');
-      pulseBg.style.transform = `translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20}px)`;
-    });
-
-    // Simulate live data connection status
-    let connectionStatus = true;
-    setInterval(() => {
-      const liveIndicator = document.querySelector('.live-indicator');
-      if (Math.random() < 0.05) { // 5% chance of brief disconnection
-        connectionStatus = false;
-        liveIndicator.querySelector('.live-text').textContent = 'RECONNECTING';
-        liveIndicator.querySelector('.live-dot').style.background = 'var(--color-warning)';
-        
-        setTimeout(() => {
-          connectionStatus = true;
-          liveIndicator.querySelector('.live-text').textContent = 'LIVE';
-          liveIndicator.querySelector('.live-dot').style.background = 'var(--color-success)';
-        }, 2000);
+      // Handle different card types
+      switch(title) {
+        case 'Vital Signs':
+          openVitalSignsModal();
+          break;
+        case 'AI Recommendations':
+          openAIRecommendationsModal();
+          break;
+        case 'Health Analytics':
+          openHealthAnalyticsModal();
+          break;
+        case 'Health Reports':
+          downloadHealthReport();
+          break;
+        case 'Emergency SOS':
+          alert('Emergency SOS activated! Contacting emergency services...');
+          break;
+        case 'Health Alerts':
+          console.log('Navigating to alerts page...');
+          break;
+        default:
+          console.log(`Navigating to ${title} page...`);
       }
-    }, 30000);
+    }, 150);
+  });
+});
+
+// Modal event listeners
+document.addEventListener('DOMContentLoaded', function() {
+  // Close Vital Signs modal when clicking overlay
+  const vitalSignsModal = document.getElementById('vitalSignsModal');
+  if (vitalSignsModal) {
+    vitalSignsModal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeVitalSignsModal();
+      }
+    });
+  }
+
+  // Close AI Recommendations modal when clicking overlay
+  const aiRecommendationsModal = document.getElementById('aiRecommendationsModal');
+  if (aiRecommendationsModal) {
+    aiRecommendationsModal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeAIRecommendationsModal();
+      }
+    });
+  }
+
+  // Close Health Analytics modal when clicking overlay
+  const healthAnalyticsModal = document.getElementById('healthAnalyticsModal');
+  if (healthAnalyticsModal) {
+    healthAnalyticsModal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeHealthAnalyticsModal();
+      }
+    });
+  }
+
+  // Close all modals with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeVitalSignsModal();
+      closeAIRecommendationsModal();
+      closeHealthAnalyticsModal();
+    }
+  });
+});
+
+// Start real-time updates
+setInterval(updateHeartRate, 3000);
+setInterval(updateBloodOxygen, 5000);
+setInterval(updateStressLevel, 7000);
+
+// Profile menu functionality
+document.querySelector('.profile-menu').addEventListener('click', function() {
+  this.style.transform = 'scale(0.95)';
+  
+  setTimeout(() => {
+    this.style.transform = '';
+    console.log('Opening profile menu...');
+  }, 150);
+});
+
+// Enhanced animations on scroll
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, observerOptions);
+
+// Observe all animated elements
+document.querySelectorAll('.stat-card, .action-card').forEach(el => {
+  observer.observe(el);
+});
+
+// Add subtle parallax effect to background
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+  
+  const pulseBg = document.querySelector('.pulse-bg');
+  if (pulseBg) {
+    pulseBg.style.transform = `translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20}px)`;
+  }
+});
+
+// Simulate live data connection status
+let connectionStatus = true;
+setInterval(() => {
+  const liveIndicator = document.querySelector('.live-indicator');
+  if (liveIndicator && Math.random() < 0.05) { // 5% chance of brief disconnection
+    connectionStatus = false;
+    const liveText = liveIndicator.querySelector('.live-text');
+    const liveDot = liveIndicator.querySelector('.live-dot');
+    
+    if (liveText) liveText.textContent = 'RECONNECTING';
+    if (liveDot) liveDot.style.background = 'var(--color-warning)';
+    
+    setTimeout(() => {
+      connectionStatus = true;
+      if (liveText) liveText.textContent = 'LIVE';
+      if (liveDot) liveDot.style.background = 'var(--color-success)';
+    }, 2000);
+  }
+}, 30000);
   </script>
 </body>
